@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Valentin Gostev
+  role_name: zenko_cloudserver
+  description: Role deploys Zenko Cloudserver container
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+  galaxy_tags:
+    - zenko
+    - cloudserver
+    - scality
+    - s3
+    - storage
+    - object
+dependencies: []

@@ -1,0 +1,36 @@
+---
+zenkos3_task_prefix: "=== ZENKO CLOUDSERVER ==="
+
+# Paths
+zenkos3_path_base: "/opt/scality"
+zenkos3_path_data: "{{ zenkos3_path_base }}/data"
+zenkos3_path_metadata: "{{ zenkos3_path_base }}/metadata"
+zenkos3_path_authdata:  "{{ zenkos3_path_base }}/authdata.json"
+zenkos3_path_envfile: "{{ zenkos3_path_base }}/zenkos3.env"
+
+# Listen address and port
+zenkos3_bind_addr: '127.0.0.1'
+zenkos3_bind_port: '8000'
+
+# Templates
+zenkos3_template_authdata: "authdata.json.j2"
+zenkos3_template_envfile: "zenkos3.env.j2"
+
+# Container options
+zenkos3_ct_image: "zenko/cloudserver"
+zenkos3_ct_name: "s3"
+zenkos3_ct_path_authdata: "/usr/src/app/conf/authdata.json"
+zenkos3_ct_path_data: "/usr/src/app/localData"
+zenkos3_ct_path_metadata: "/usr/src/app/localMetadata"
+zenkos3_ct_bind_port: '8000'
+zenkos3_ct_pull: "no"
+zenkos3_ct_recreate: "no"
+zenkos3_ct_restart_policy: "always"
+zenkos3_ct_state: "started"
+# Environment variables
+zenkos3_env_simple_access_enabled: false
+zenkos3_env_remote_management_disable: "1"
+zenkos3_env_s3backend: "file"
+# WARNING! Change default credentials!
+zenkos3_env_scality_access_key_id: "accessKey1"
+zenkos3_env_scality_secret_access_key: "verySecretKey1"

@@ -1,0 +1,35 @@
+---
+- name: "{{ zenkos3_task_prefix }} Create Directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ zenkos3_path_base }}"
+    - "{{ zenkos3_path_data }}"
+    - "{{ zenkos3_path_metadata }}"
+
+- name: "{{ zenkos3_task_prefix }} Place environment file"
+  template:
+    src: "{{ zenkos3_template_envfile }}"
+    dest: "{{ zenkos3_path_envfile }}"
+
+- name: "{{ zenkos3_task_prefix }} Place auth config file"
+  template:
+    src: "{{ zenkos3_template_authdata }}"
+    dest: "{{ zenkos3_path_authdata }}"
+
+- name: "{{ zenkos3_task_prefix }} Provision container"
+  docker_container:
+    env_file: "{{ zenkos3_path_envfile }}"
+    image: "{{ zenkos3_ct_image }}"
+    name: "{{ zenkos3_ct_name }}"
+    ports:
+      - "{{ zenkos3_bind_addr }}:{{ zenkos3_bind_port }}:{{ zenkos3_ct_bind_port }}"
+    pull: "{{ zenkos3_ct_pull }}"
+    recreate: "{{ zenkos3_ct_recreate }}"
+    restart_policy: "{{ zenkos3_ct_restart_policy }}"
+    volumes:
+      - "{{ zenkos3_path_data }}:{{ zenkos3_ct_path_data }}:rw"
+      - "{{ zenkos3_path_metadata }}:{{ zenkos3_ct_path_metadata }}:rw"
+      - "{{ zenkos3_path_authdata }}:{{ zenkos3_ct_path_authdata }}:ro"
+    state: "{{ zenkos3_ct_state }}"
